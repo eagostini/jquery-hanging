@@ -1,0 +1,43 @@
+{
+  "name": "jquery-hanging",
+  "version": "1.0.0",
+  "description": "A jQuery plugin to hang actions from an element if target fields are not valid.",
+  "main": "dist/jquery-hanging.js",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dist": "npm install && npm run dev && npm run production",
+    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eagostini/jquery-hanging.git"
+  },
+  "keywords": [
+    "jquery",
+    "jquery-plugin",
+    "submit",
+    "button",
+    "hanging",
+    "invalid",
+    "form"
+  ],
+  "author": {
+    "name": "Eduardo Agostini",
+    "email": "edu.agostini@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eagostini/jquery-hanging/issues"
+  },
+  "homepage": "https://github.com/eagostini/jquery-hanging#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jquery-namely": "^1.1.1",
+    "jquery-validate": "^2.0.0"
+  },
+  "devDependencies": {
+    "laravel-mix": "^1.4.2"
+  }
+}
