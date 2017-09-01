@@ -2,7 +2,7 @@
   "name": "jquery-hanging",
   "version": "1.0.0",
   "description": "A jQuery plugin to hang actions from an element if target fields are not valid.",
-  "main": "dist/jquery-hanging.js",
+  "main": "src/jquery-hanging.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "dist": "npm install && npm run dev && npm run production",

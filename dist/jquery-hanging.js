@@ -5,21 +5,25 @@ jQuery(function ($) {
          * @param {Function} callback
          */
         it: function it(target, callback) {
-            var tag = 'form';
-
             var clone = target.clone();
 
+            var source = target.parent();
+            var tag = 'form';
+
             if (!clone.is(tag)) {
-                clone.val(target.val());
                 clone = $('<' + tag + ' />').append(clone);
             }
 
-            target.find(':input').each(function () {
+            clone.find(':input').each(function () {
                 var element = $(this);
-                var name = element.attr('name');
-                var value = element.val();
+                var selector = '@' + element.attr('name');
+                var value = source.find(selector).val();
 
-                clone.find('@' + name).val(value);
+                if (element.is(':file')) {
+                    element.attr('type', 'text');
+                }
+
+                element.val(value);
             });
 
             clone.css({
