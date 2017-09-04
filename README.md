@@ -7,4 +7,4 @@ I intend to improve the integration between this plugin and the validator depend
 ### Dependencies
 
 + [jQuery Namely](https://github.com/eagostini/jquery-namely)
-+ [JQuery Validation](https://github.com/jquery-validation/jquery-validation)
++ [jQuery Validation](https://github.com/jquery-validation/jquery-validation)
