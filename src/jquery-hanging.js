@@ -1,4 +1,27 @@
 jQuery($ => {
+    const bind = {
+        /**
+         * @param {jQuery} target
+         * @param {Object} defaults
+         * @returns {jQuery}
+         */
+        it: function (target, defaults) {
+            const that = this;
+
+            return target.on('change click input keyup paste', function () {
+                const target = $(this);
+
+                if (target.serialize() !== defaults.data) {
+                    sandbox.it(target, clone => {
+                        that.prop('disabled', !clone.valid());
+                    });
+                } else {
+                    that.prop('disabled', defaults.disabled);
+                }
+            })
+        }
+    };
+
     const sandbox = {
         /**
          * @param {jQuery} target
@@ -38,6 +61,19 @@ jQuery($ => {
         }
     };
 
+    const verify = {
+        /**
+         * @param {jQuery} target
+         * @return {Boolean}
+         */
+        it: function (target) {
+            const source = target.parent();
+            const warnings = source.find('[required]:input:not([name])');
+
+            return !warnings.length;
+        }
+    };
+
     /**
      * @param {jQuery} element
      * @returns {jQuery}
@@ -50,16 +86,10 @@ jQuery($ => {
         original.disabled = that.is(':disabled');
         original.data = original.disabled && target.serialize();
 
-        target.change(function () {
-            const target = $(this);
+        if (!verify.it(target)) {
+            console.warn('jQuery Hanging: target has required fields (or is a required field) with no name attribute(s). It might cause unexpected validation behaviours.');
+        }
 
-            if (target.serialize() !== original.data) {
-                sandbox.it(target, clone => {
-                    that.prop('disabled', !clone.valid());
-                });
-            } else {
-                that.prop('disabled', original.disabled);
-            }
-        }).change();
+        bind.it.call(that, target, original).change();
     };
 });
