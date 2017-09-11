@@ -1,4 +1,27 @@
-jQuery($ => {
++function (exports) {
+    if (typeof window === 'undefined') {
+        module.exports = exports;
+    } else {
+        return exports(window.jQuery);
+    }
+}(function ($) {
+    const back = {
+        /**
+         * @returns {jQuery}
+         */
+        up: function (target) {
+            const source = target.parent();
+
+            source.find(':input').each(function () {
+                const element = $(this);
+
+                element.data('hanging', {
+                    required: element.prop('required')
+                });
+            });
+        }
+    };
+
     const bind = {
         /**
          * @param {jQuery} target
@@ -40,12 +63,17 @@ jQuery($ => {
             clone.find(':input').each(function () {
                 const element = $(this);
                 const selector = `@${ element.attr('name') }`;
-                const value = source.find(selector).val();
+
+                const mirror = source.find(selector);
+                const properties = mirror.data('hanging');
+                const value = mirror.val();
 
                 if (element.is(':file')) {
                     element.attr('type', 'text');
                 }
 
+                element.prop('required', properties.required);
+                element.show();
                 element.val(value);
             });
 
@@ -90,6 +118,7 @@ jQuery($ => {
             console.warn('jQuery Hanging: target has required fields (or is a required field) with no name attribute(s). It might cause unexpected validation behaviours.');
         }
 
+        back.up.call(that, target);
         bind.it.call(that, target, original).change();
     };
 });
