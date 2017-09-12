@@ -12,7 +12,7 @@
         up: function (target) {
             const source = target.parent();
 
-            source.find(':input').each(function () {
+            source.find('[name]:input').each(function () {
                 const element = $(this);
 
                 element.data('hanging', {
@@ -60,12 +60,12 @@
                 clone = $(`<${ tag } />`).append(clone);
             }
 
-            clone.find(':input').each(function () {
+            clone.find('[name]:input').each(function () {
                 const element = $(this);
                 const selector = `@${ element.attr('name') }`;
 
                 const mirror = source.find(selector);
-                const properties = mirror.data('hanging');
+                const properties = mirror.data('hanging') || {};
                 const value = mirror.val();
 
                 if (element.is(':file')) {
