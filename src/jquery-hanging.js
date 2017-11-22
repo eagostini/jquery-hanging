@@ -5,23 +5,6 @@
         return exports(window.jQuery);
     }
 }(function ($) {
-    const back = {
-        /**
-         * @returns {jQuery}
-         */
-        up: function (target) {
-            const source = target.parent();
-
-            source.find('[name]:input').each(function () {
-                const element = $(this);
-
-                element.data('hanging', {
-                    required: element.prop('required')
-                });
-            });
-        }
-    };
-
     const bind = {
         /**
          * @param {jQuery} target
@@ -34,7 +17,7 @@
             return target.on('change click input keyup paste', function () {
                 const target = $(this);
 
-                if (target.serialize() !== defaults.data) {
+                if (target.dirty()) {
                     sandbox.it(target, clone => {
                         that.prop('disabled', !clone.valid());
                     });
@@ -72,7 +55,6 @@
                     element.attr('type', 'text');
                 }
 
-                element.prop('required', properties.required);
                 element.show();
                 element.val(value);
             });
@@ -84,21 +66,7 @@
             }).appendTo(document.body);
 
             callback.call(target, clone);
-
             clone.remove();
-        }
-    };
-
-    const verify = {
-        /**
-         * @param {jQuery} target
-         * @return {Boolean}
-         */
-        it: function (target) {
-            const source = target.parent();
-            const warnings = source.find('[required]:input:not([name])');
-
-            return !warnings.length;
         }
     };
 
@@ -107,18 +75,13 @@
      * @returns {jQuery}
      */
     $.fn.hangs = function (element) {
-        const original = {};
         const target = $(element);
         const that = this;
 
-        original.disabled = that.is(':disabled');
-        original.data = original.disabled && target.serialize();
+        const original = {
+            disabled: that.is(':disabled')
+        };
 
-        if (!verify.it(target)) {
-            console.warn('jQuery Hanging: target has required fields (or is a required field) with no name attribute(s). It might cause unexpected validation behaviours.');
-        }
-
-        back.up.call(that, target);
         bind.it.call(that, target, original).change();
     };
 });
