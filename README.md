@@ -7,5 +7,6 @@ I intend to improve the integration between this plugin and the validator depend
 ### Dependencies
 
 + [jQuery](https://github.com/jquery/jquery)
++ [jQuery Dirty](https://github.com/eagostini/jquery-dirty)
 + [jQuery Namely](https://github.com/eagostini/jquery-namely)
 + [jQuery Validation](https://github.com/jquery-validation/jquery-validation)
