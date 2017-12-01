@@ -14,16 +14,18 @@
         it: function it(target, defaults) {
             var that = this;
 
-            return target.on('change click input keyup paste', function () {
+            return target.on('input.hanging', function (event) {
                 var target = $(this);
 
-                if (target.dirty()) {
-                    sandbox.it(target, function (clone) {
-                        that.prop('disabled', !clone.valid());
-                    });
-                } else {
-                    that.prop('disabled', defaults.disabled);
-                }
+                window.setTimeout(function () {
+                    if (target.dirty()) {
+                        sandbox.it(target, function (clone) {
+                            that.prop('disabled', !clone.valid());
+                        });
+                    } else {
+                        that.prop('disabled', defaults.disabled);
+                    }
+                });
             });
         }
     };
@@ -82,6 +84,6 @@
             disabled: that.is(':disabled')
         };
 
-        bind.it.call(that, target, original).change();
+        bind.it.call(that, target, original).trigger('input.hanging');
     };
 });
