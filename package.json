@@ -34,7 +34,7 @@
   "homepage": "https://github.com/eagostini/jquery-hanging#readme",
   "dependencies": {
     "jquery": "^3.2.1",
-    "jquery-dirty": "^1.1.0",
+    "jquery-dirty": "^1.1.1",
     "jquery-namely": "^1.1.1",
     "jquery-validate": "^2.0.0"
   },
