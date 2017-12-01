@@ -1,6 +1,6 @@
 {
   "name": "jquery-hanging",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A jQuery plugin to hang actions from an element if target fields are not valid.",
   "main": "src/jquery-hanging.js",
   "scripts": {
