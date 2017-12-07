@@ -14,7 +14,7 @@
         it: function (target, defaults) {
             const that = this;
 
-            return target.on('input.hanging', function (event) {
+            return target.on('change.hanging input.hanging', function (event) {
                 const target = $(this);
 
                 window.setTimeout(() => {
